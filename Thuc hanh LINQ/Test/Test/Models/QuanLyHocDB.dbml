@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanlyhocDB" Class="QuanLyHocDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=SKY-20200706ULN;Initial Catalog=QuanlyhocDB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanlyhocDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.DangKyHoc" Member="DangKyHocs">
+    <Type Name="DangKyHoc">
+      <Column Name="MaDangKy" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaSV" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MaMon" Type="System.String" DbType="NChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="NamHK" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="GhiChu" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Association Name="MonHoc_DangKyHoc" Member="MonHoc" ThisKey="MaMon" OtherKey="MaMon" Type="MonHoc" IsForeignKey="true" />
+      <Association Name="SinhVien_DangKyHoc" Member="SinhVien" ThisKey="MaSV" OtherKey="MaSV" Type="SinhVien" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.KhoaDaoTao" Member="KhoaDaoTaos">
+    <Type Name="KhoaDaoTao">
+      <Column Name="MaKhoa" Type="System.String" DbType="NChar(2) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenKhoa" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Association Name="KhoaDaoTao_MonHoc" Member="MonHocs" ThisKey="MaKhoa" OtherKey="MaKhoa" Type="MonHoc" />
+      <Association Name="KhoaDaoTao_SinhVien" Member="SinhViens" ThisKey="MaKhoa" OtherKey="MaKhoa" Type="SinhVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MonHoc" Member="MonHocs">
+    <Type Name="MonHoc">
+      <Column Name="MaKhoa" Type="System.String" DbType="NChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="MaMon" Type="System.String" DbType="NChar(3) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TenMon" Type="System.String" DbType="NChar(30)" CanBeNull="true" />
+      <Column Name="SoTinChi" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GhiChu" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Association Name="MonHoc_DangKyHoc" Member="DangKyHocs" ThisKey="MaMon" OtherKey="MaMon" Type="DangKyHoc" />
+      <Association Name="KhoaDaoTao_MonHoc" Member="KhoaDaoTao" ThisKey="MaKhoa" OtherKey="MaKhoa" Type="KhoaDaoTao" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SinhVien" Member="SinhViens">
+    <Type Name="SinhVien">
+      <Column Name="MaKhoa" Type="System.String" DbType="NChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="LopBC" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="MaSV" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NChar(30)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Association Name="SinhVien_DangKyHoc" Member="DangKyHocs" ThisKey="MaSV" OtherKey="MaSV" Type="DangKyHoc" />
+      <Association Name="KhoaDaoTao_SinhVien" Member="KhoaDaoTao" ThisKey="MaKhoa" OtherKey="MaKhoa" Type="KhoaDaoTao" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
